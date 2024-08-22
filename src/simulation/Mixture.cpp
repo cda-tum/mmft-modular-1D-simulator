@@ -1,6 +1,8 @@
 #include "Mixture.h"
 #include <stdexcept>
 
+#include <cassert>
+
 namespace sim {
 
 Mixture::Mixture(int id, std::unordered_map<int, double>&& fluidConcentrations, double viscosity, double density, double largestMolecularSize) : id(id), viscosity(viscosity), density(density), largestMolecularSize(largestMolecularSize) {

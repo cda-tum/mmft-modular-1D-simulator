@@ -36,6 +36,8 @@
 #include "StopSimulationEvent.h"
 #include "TimeStepEvent.h"
 
+#include <cassert>
+
 namespace sim {
 
 Simulation::Simulation() {}
