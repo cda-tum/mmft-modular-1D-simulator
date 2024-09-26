@@ -50,7 +50,22 @@ In the future, we plan to introduce a GUI to simplify the process.
 ### Initial Setup
 Before using the tool the first time make sure to complete the following steps:
 1. **Install an IDE:** If you don't have one installed already, download and install an IDE that supports C++ development, such as CLion or Visual Studio Code.
-2. **Clone the Repository:** Use Git to clone the project repository to your local machine. You can do this using the Git command line or the GitHub interface (e.g., GitHub.com or GitHub Desktop).
+2. **Install a C++ Compiler and CMake:** To compile C++ code, you'll need a compiler and build system. Here is how to set them up on different operating systems:
+- Ubuntu(Linux): 
+```bash
+sudo apt update
+sudo apt install build-essential cmake
+```
+- Windows:
+```bash
+choco install cmake
+```
+- MacOS:
+```bash
+xcode-select --install
+brew install cmake
+```
+3. **Clone the Repository:** Use Git to clone the project repository to your local machine. You can do this using the Git command line or the GitHub interface (e.g., GitHub.com or GitHub Desktop).
 
 ### Step 1 - Build the executable
 1. **Create a Build Folder and Compile:** Open your terminal and follow these command to create a build directory and compile the code
