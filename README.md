@@ -43,6 +43,55 @@ and include the library API header in your project file:
 #include "droplet-simulator/Simulator.h"
 ```
 
+## Step-by-Step Guide
+This guide will walk you through the process of running the simulator, even if you have no prior experience with C++ programming.
+In the future, we plan to introduce a GUI to simplify the process.
+
+### Initial Setup
+Before using the tool the first time make sure to complete the following steps:
+1. **Install an IDE:** If you don't have one installed already, download and install an IDE that supports C++ development, such as CLion or Visual Studio Code.
+2. **Install a C++ Compiler and CMake:** To compile C++ code, you'll need a compiler and build system. Here is how to set them up on different operating systems:
+- Ubuntu(Linux): 
+```bash
+sudo apt update
+sudo apt install build-essential cmake
+```
+- Windows:
+```bash
+choco install cmake
+```
+- MacOS:
+```bash
+xcode-select --install
+brew install cmake
+```
+3. **Clone the Repository:** Use Git to clone the project repository to your local machine. You can do this using the Git command line or the GitHub interface (e.g., GitHub.com or GitHub Desktop).
+
+### Step 1 - Build the executable
+1. **Create a Build Folder and Compile:** Open your terminal and follow these command to create a build directory and compile the code
+```c++
+mkdir build
+cd build
+cmake ..
+make
+```
+
+### Step 2 - Choose a Test Example and Run the Simulation
+1. **Choose a Test Example:** Navigate to the `test` folder and select an example to use as a starting point for your simulation. We recommend runnning the code without any modifications initially to ensure everything is set up correctly. 
+2. **Run the Test Simulation:** You can run any of the test cases using Google Test (also after you have adapted them). To run an example, such as the membrane test found in `tests/organ/Organ.tests.cpp`, use the following command in your terminal:
+```c++
+./dropletTest --gtest_filter=Organ.TwoOrgan
+```
+You can adapt the executable name and test case to match the simulation you want to run.
+
+### Step 3 - Customize the Test File
+1. **Select a Suitable Example:** Choose a test case that closely matches your desired simulation.
+2. **Edit the Code:** Review the comments in the example code, which explain each line of code. Adjust the values or channel definitions as needed for your simulation.
+
+If you create a new test file, don't forget to:
+- Update the `CMakeLists.txt` file in your new test folder.
+- Ensure that the new test is referenced in the `CMakeLists.txt`file located in the `tests`directory.
+
 ## Example
 This small example shows how to create and simulate a small network for droplet simulations. 
 ```c++
