@@ -172,4 +172,6 @@ More examples are defined in the tests subfolder.
 
 ## References
 
+M. Emmerich, F. Costamoling, and R. Wille. [Modular and extendable 1D-simulation for microfluidic devices](https://doi.org/10.1038/s41598-024-77741-8). Scientific Reports, 2024.
+
 G. Fink, F. Costamoling, and R. Wille. [MMFT Droplet Simulator: Efficient Simulation of Droplet-based Microfluidic Devices](https://doi.org/10.1016/j.simpa.2022.100440). Software Impacts, 2022.
