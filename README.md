@@ -1,5 +1,9 @@
 # Modular 1D-Simulator
 
+[![Ubuntu CI](https://img.shields.io/github/actions/workflow/status/cda-tum/mmft-modular-1D-simulator/ubuntu.yml?label=Ubuntu&logo=ubuntu&style=flat-square)](https://github.com/cda-tum/mmft-modular-1D-simulator/action/workflows/ubuntu.yml)
+[![macOS CI](https://img.shields.io/github/actions/workflow/status/cda-tum/mmft-modular-1D-simulator/macos.yml?label=macOS&logo=apple&style=flat-square)](https://github.com/cda-tum/mmft-modular-1D-simulator/action/workflows/macos.yml)
+[![Nature](https://img.shields.io/static/v1?label=Nature&message=QuickSim&color=informational&style=flat-square)](https://doi.org/10.1038/s41598-024-77741-8)
+
 <p align="center">
   <picture>
     <img src="https://www.cda.cit.tum.de/research/microfluidics/logo-microfluidics-toolkit.png" width="60%">
@@ -11,7 +15,9 @@ This 1D-Simulator exploits the 1D analysis model, which is especially suited for
 For more information about our work on Microfluidics, please visit https://www.cda.cit.tum.de/research/microfluidics/. 
 More details about the implementation can be found in:
 
-[1] M. Emmerich, F. Costamoling, and R. Wille. Modular and Extendable 1D-Simulator for Microfluidic Devices. ("Under Review")
+M. Emmerich, F. Costamoling, and R. Wille. [Modular and extendable 1D-simulation for microfluidic devices](https://doi.org/10.1038/s41598-024-77741-8). Scientific Reports, 2024.
+
+G. Fink, F. Costamoling, and R. Wille. [MMFT Droplet Simulator: Efficient Simulation of Droplet-based Microfluidic Devices](https://doi.org/10.1016/j.simpa.2022.100440). Software Impacts, 2022.
 
 If you have any questions, feel free to contact us via microfluidics.cda@xcit.tum.de or by creating an issue on GitHub. 
 
@@ -170,8 +176,3 @@ int main(int argc, char const* argv[]) {
 
 More examples are defined in the tests subfolder.
 
-## References
-
-M. Emmerich, F. Costamoling, and R. Wille. [Modular and extendable 1D-simulation for microfluidic devices](https://doi.org/10.1038/s41598-024-77741-8). Scientific Reports, 2024.
-
-G. Fink, F. Costamoling, and R. Wille. [MMFT Droplet Simulator: Efficient Simulation of Droplet-based Microfluidic Devices](https://doi.org/10.1016/j.simpa.2022.100440). Software Impacts, 2022.
