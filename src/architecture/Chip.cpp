@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <unordered_map>
+#include <stdexcept>
 
 #include "FlowRatePump.h"
 #include "PressurePump.h"
