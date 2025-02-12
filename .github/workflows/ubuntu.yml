@@ -85,3 +85,4 @@ jobs:
       - name: Test
         working-directory: ${{github.workspace}}/build_release
         run: ./dropletTest
+        timeout-minutes: 10
