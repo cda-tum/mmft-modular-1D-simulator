@@ -172,7 +172,7 @@ TEST(Droplet, RingNetworkE1) {
         int idx = 0;
         for (auto dropletPath : actualDropletPath.positions) {
             for (auto channelId : dropletPath.channelIds) {
-                ASSERT_EQ(channelId, expectedDropetPath.at(idx));
+                ASSERT_NEAR(channelId, expectedDropetPath.at(idx), 1e-10);
                 occuranceCount++;
                 if (occuranceCount == 3) {
                     std::cout << channelId << " ";
@@ -341,7 +341,7 @@ TEST(Droplet, RingNetworkE2) {
         int idx = 0;
         for (auto dropletPath : actualDropletPath.positions) {
             for (auto channelId : dropletPath.channelIds) {
-                ASSERT_EQ(channelId, expectedDropetPath.at(idx));
+                ASSERT_NEAR(channelId, expectedDropetPath.at(idx), 1e-10);
                 occuranceCount++;
                 if (occuranceCount == 3) {
                     std::cout << channelId << " ";
