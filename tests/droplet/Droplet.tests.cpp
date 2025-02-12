@@ -19,6 +19,7 @@ TEST(Droplet, RingNetworkE1) {
     //--- API ---
     droplet::Simulator sim;
 
+    std::cout << "Add Flow Rate Pump..." << std::endl;
     // flowRate pump
     auto flowRate = 3e-11;
     auto pump = sim.addFlowRatePump(-1, 0, flowRate);
@@ -85,6 +86,8 @@ TEST(Droplet, RingNetworkE1) {
     auto dLength3 = 42185e-6;
     auto dLength4 = 41475e-6;
 
+    std::cout << "Add Channels..." << std::endl;
+
     auto c1 = sim.addChannel(0, 1, cHeight, cWidth, iLength);
     //Node 1
     auto c2_n1 = sim.addChannel(1, 2, cHeight, cWidth, lIn1N1);
@@ -129,16 +132,22 @@ TEST(Droplet, RingNetworkE1) {
     auto c6_n6 = sim.addChannel(64, -1, cHeight, cWidth, cLength);
     auto c7_n6 = sim.addBypassChannel(62, 63, cHeight, bWidth, lByN6);
 
+    std::cout << "Add Sink and Ground..." << std::endl;
+
     //--- sink ---
     sim.addSink(-1);
     //--- ground ---
     sim.addGround(-1);
+
+    std::cout << "Add Fluid..." << std::endl;
 
     // fluids
     auto fluid0 = sim.addFluid(1e-3, 1e3, 0.0, 9e-10);
     auto fluid1 = sim.addFluid(4e-3, 1e3, 1.0, 9e-10);
     //--- continuousPhase ---
     sim.setContinuousPhase(fluid0);
+
+    std::cout << "Add Droplet..." << std::endl;
 
     // droplets
     auto dropletVolume = lDroplet * cWidth * cHeight;
@@ -150,9 +159,11 @@ TEST(Droplet, RingNetworkE1) {
     auto droplet5 = sim.addDroplet(fluid1, dropletVolume, d_m5 * flowRate / cWidth * cHeight, c1, 0.5);
     auto droplet6 = sim.addDroplet(fluid1, dropletVolume, d_m6 * flowRate / cWidth * cHeight, c1, 0.5);
 
+    std::cout << "Add Chip Validity..." << std::endl;
     // check if chip is valid
     sim.checkChipValidity();
 
+    std::cout << "Start Simulation..." << std::endl;
     // simulate
     droplet::SimulationResult result = sim.simulate();
     //std::cout << result.toJson(4) << std::endl;
@@ -172,7 +183,7 @@ TEST(Droplet, RingNetworkE1) {
         int idx = 0;
         for (auto dropletPath : actualDropletPath.positions) {
             for (auto channelId : dropletPath.channelIds) {
-                ASSERT_NEAR(channelId, expectedDropetPath.at(idx), 1e-10);
+                ASSERT_EQ(channelId, expectedDropetPath.at(idx));
                 occuranceCount++;
                 if (occuranceCount == 3) {
                     std::cout << channelId << " ";
@@ -341,7 +352,7 @@ TEST(Droplet, RingNetworkE2) {
         int idx = 0;
         for (auto dropletPath : actualDropletPath.positions) {
             for (auto channelId : dropletPath.channelIds) {
-                ASSERT_NEAR(channelId, expectedDropetPath.at(idx), 1e-10);
+                ASSERT_EQ(channelId, expectedDropetPath.at(idx));
                 occuranceCount++;
                 if (occuranceCount == 3) {
                     std::cout << channelId << " ";
