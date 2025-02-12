@@ -1,0 +1,78 @@
+name: 🪟 • CI
+
+on:
+  push:
+    branches: [ 'main' ]
+    paths:
+      - '**/*.h'
+      - '**/*.cpp'
+      - '**/*.cmake'
+      - '**/CMakeLists.txt'
+      - '.github/workflows/windows.yml'
+  pull_request:
+    branches: [ 'main' ]
+    paths:
+      - '**/*.h'
+      - '**/*.cpp'
+      - '**/*.cmake'
+      - '**/CMakeLists.txt'
+      - '.github/workflows/windows.yml'
+    merge_group:
+
+jobs:
+  build_and_test:
+    strategy:
+      matrix:
+        os: [ windows-2019, windows-2022, windows-2025 ]
+        toolset: [ v142, v143, ClangCL ]
+        include:
+          - os: windows-2019
+            env: "Visual Studio 16 2019"
+          - os: windows-2022
+            env: "Visual Studio 17 2022"
+          - os: windows-2025
+            env: "Visual Studio 17 2022"
+        exclude:
+          - os: windows-2019
+            toolset: v143
+          - os: windows-2022
+            toolset: v142
+          - os: windows-2025
+            toolset: v142
+
+    name: 🪟 ${{matrix.os}} with ${{matrix.env}} and ${{matrix.toolset}} toolset
+    runs-on: ${{matrix.os}}
+
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: "${{matrix.os}}-${{matrix.toolset}}-Release"
+          variant: ccache
+          save: true
+          max-size: 10G
+
+      - name: Create Build Environment
+        run: cmake -E make_directory ${{github.workspace}}\build_release
+
+      - name: Configure CMake
+        working-directory: ${{github.workspace}}\build_release
+        run: >
+          cmake ${{github.workspace}} -G "${{matrix.env}}" -A x64 -T ${{matrix.toolset}}
+          -DCMAKE_CXX_COMPILER=${{matrix.compiler}}
+
+        env:
+          BOOST_ROOT: ${{steps.install-boost.outputs.BOOST_ROOT}}
+
+      - name: Build
+        working-directory: ${{github.workspace}}\build_release
+        run: cmake --build . --config Release -j4
+
+      - name: Test
+        working-directory: ${{github.workspace}}\build_release
+        run: .\dropletTest.exe
