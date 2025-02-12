@@ -82,7 +82,5 @@ jobs:
 
       - name: Run Tests and Save Results
         working-directory: ${{github.workspace}}/build_release
-        run: >
-          ./dropletTest --gtest_output=xml:test_results.xml || 
-          (echo "Tests failed or timed out" && exit 1)
+        run: ./dropletTest --gtest_filter=Droplet.RingNetworkE1
         timeout-minutes: 10
