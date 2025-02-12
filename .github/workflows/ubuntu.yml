@@ -82,5 +82,5 @@ jobs:
 
       - name: Run Tests and Save Results
         working-directory: ${{github.workspace}}/build_release
-        run: ./dropletTest --gtest_filter=Droplet.RingNetworkE1
+        run: ./dropletTest --gtest_filter=Organ.TwoOrgan
         timeout-minutes: 10
