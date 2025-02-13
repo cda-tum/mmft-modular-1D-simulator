@@ -142,7 +142,7 @@ TEST(Droplet, RingNetworkE1) {
     std::cout << "Add Fluid..." << std::endl;
 
     // fluids
-    auto fluid0 = sim.addFluid(1e-3, 1e3, 0.0, 9e-10);
+    auto fluid0 = sim.addFluid(1e-3, 1e3, 1.0, 9e-10);
     auto fluid1 = sim.addFluid(4e-3, 1e3, 1.0, 9e-10);
     //--- continuousPhase ---
     sim.setContinuousPhase(fluid0);
@@ -319,7 +319,7 @@ TEST(Droplet, RingNetworkE2) {
     sim.addGround(-1);
 
     // fluids
-    auto fluid0 = sim.addFluid(1e-3, 1e3, 0.0, 9e-10);
+    auto fluid0 = sim.addFluid(1e-3, 1e3, 1.0, 9e-10);
     auto fluid1 = sim.addFluid(4e-3, 1e3, 1.0, 9e-10);
     //--- continuousPhase ---
     sim.setContinuousPhase(fluid0);
