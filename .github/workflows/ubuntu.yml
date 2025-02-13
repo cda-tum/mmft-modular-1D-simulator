@@ -1,0 +1,86 @@
+name: 🐧 • CI
+
+on:
+  push:
+    branches: [ 'main' ]
+    paths:
+      - '**/*.h'
+      - '**/*.cpp'
+      - '**/*.cmake'
+      - '**/CMakeLists.txt'
+      - '.github/workflows/ubuntu.yml'
+  pull_request:
+    branches: [ 'main' ]
+    paths:
+      - '**/*.h'
+      - '**/*.cpp'
+      - '**/*.cmake'
+      - '**/CMakeLists.txt'
+      - '.github/workflows/ubuntu.yml'
+  merge_group:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build_and_test:
+    strategy:
+      matrix:
+        os: [ ubuntu-22.04, ubuntu-24.04 ]
+        compiler: [ g++-11, g++-12, g++-13, clang++-14, clang++-15, clang++-16 ]
+        exclude:
+          - os: ubuntu-22.04
+            compiler: g++-13
+          - os: ubuntu-22.04
+            compiler: clang++-16
+          - os: ubuntu-24.04
+            compiler: clang++-14
+        include:
+          - os: ubuntu-22.04
+            compiler: g++-10
+          - os: ubuntu-24.04
+            compiler: g++-14
+          - os: ubuntu-24.04
+            compiler: clang++-17
+          - os: ubuntu-24.04
+            compiler: clang++-18
+
+    name: 🐧 ${{matrix.os}} with ${{matrix.compiler}}
+    runs-on: ${{matrix.os}}
+
+    steps:
+      - name: Install libraries and the respective compiler
+        run: sudo apt-get update && sudo apt-get install -yq libtbb-dev ${{matrix.compiler}}
+
+      - name: Clone Repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: "${{matrix.os}}-${{matrix.compiler}}-Release"
+          variant: ccache
+          save: true
+          max-size: 10G
+
+      - name: Create Build Environment
+        run: cmake -E make_directory ${{github.workspace}}/build_release
+
+      - name: Configure CMake
+        working-directory: ${{github.workspace}}/build_release
+        run: >
+          cmake ${{github.workspace}}
+          -DCMAKE_CXX_COMPILER=${{matrix.compiler}}
+          -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        working-directory: ${{github.workspace}}/build_release
+        run: cmake --build . --config Release -j4
+
+      - name: Run Tests and Save Results
+        working-directory: ${{github.workspace}}/build_release
+        run: ./dropletTest
+        timeout-minutes: 10
