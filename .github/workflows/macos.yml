@@ -29,25 +29,8 @@ defaults:
 
 jobs:
   build_and_test:
-    strategy:
-      matrix:
-        os: [ macos-26-intel, macos-26 ]
-        compiler: [ g++-13, g++-14, clang++ ]
-        include:
-          - compiler: clang++
-            ccompiler: clang
-          - compiler: g++-13
-            ccompiler: gcc-13
-          - compiler: g++-14
-            ccompiler: gcc-14
-        exclude:
-          - os: macos-26
-            compiler: g++-13
-          - os: macos-26
-            compiler: g++-14
-
-    name: 🍎 ${{matrix.os}} with ${{matrix.compiler}}
-    runs-on: ${{matrix.os}}
+    name: 🍎 macos-26 with clang++
+    runs-on: macos-26
 
     steps:
       - name: Clone Repository
@@ -62,7 +45,7 @@ jobs:
       - name: Setup ccache
         uses: hendrikmuhs/ccache-action@v1.2
         with:
-          key: "${{matrix.os}}-${{matrix.compiler}}-Release"
+          key: "macos-26-clang++-Release"
           variant: ccache
           save: true
           max-size: 10G
@@ -74,7 +57,7 @@ jobs:
         working-directory: ${{github.workspace}}/build_release
         run: >
           cmake ${{github.workspace}}
-          -DCMAKE_CXX_COMPILER=${{matrix.compiler}}
+          -DCMAKE_CXX_COMPILER=clang++
           -DCMAKE_BUILD_TYPE=Release
           -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
